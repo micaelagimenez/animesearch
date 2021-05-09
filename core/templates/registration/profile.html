@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    {{ NewUserForm.as_n }}
+    <button type="submit">Save changes</button>
+  </form>

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animes | Search</title>
+    <link rel="stylesheet" href="{% static 'core/people.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+    <div class="header">
+    </div>
+    <div class="wrap">
+        
+        {% if animes %}
+        {% for a in animes %}
+        <section>
+            <h4>{{a.title}}</h4>
+            <p>Episodes: <b>{{a.episodes}}</b></p>
+        </section>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+</body>
+</html>

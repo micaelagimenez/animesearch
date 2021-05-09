@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<html>
+<!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        {% if user.is_authenticated %}
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Welcome, {{user.username}}</a>
+        </li>
+
+    
+        {% else %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary" href="/register">Register</a>
+        </li>
+
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+
+
+  <body>
+ 
+
+    <div class = "container">
+      <div class = "text-center container">
+        <br>
+        <h2 class = "text-center">Search for your favorite animes</h2> 
+        <br>
+        <form action='search' method="POST">
+          {% csrf_token %}
+          <input type="text" name="search" placeholder="Search..." class = "text-center">
+          <button type="submit" class = "btn-danger btn-sm">Search</button>
+   
+      </div> 
+      </form>
+      
+   {% if user.is_authenticated %}
+      {% if animes %}
+      {% for anime in animes %}
+      <form method="post">
+        {% csrf_token %}
+        <section>
+          <div class=row>
+          <div class="col-md-4 col-sm-6 col-lg-3">
+            <div class="card">
+              
+              <div class="card-body text-center">
+                <p class="card-title"> <b>{{anime.Title}}</b></p>
+                <hr>
+                <p class="card-text">Episodes: <b>{{anime.Episodes}}</b></p>
+                
+                <img src = {{anime.Image}} />
+                
+              </div>
+            </div>
+        </section>
+        <input type="hidden" value="{{anime.Id}}" name="anime_id">
+        <button type="submit" class="btn btn-outline-primary" style="font-size:18px; border-radius: 50%">★</button>
+                                          
+      </form>
+   
+          
+          
+      </div>
+        
+      </div>
+      {% endfor %}
+      {% endif %}
+    {% endif %}
+    {% endblock %}
+   </body>
