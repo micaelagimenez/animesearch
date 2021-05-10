@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class Anime(models.Model):
-    title = models.CharField('Title', max_length=150)
+    title = models.CharField(max_length=150, unique=True)
     episodes = models.IntegerField()
     image = models.ImageField()
     mal_id = models.IntegerField(null=True)

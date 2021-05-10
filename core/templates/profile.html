@@ -1,8 +1,28 @@
 {% extends 'base.html' %}
-    {% block content %}
+{% block content %}
 
-	{% load crispy_forms_tags %}  
+{% load crispy_forms_tags %}  
 
+<!--Navbar-->
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="/">My Animes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'core:search' %}">Search</a>
+        </li>
+       
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
+        </li> 
+      </ul>
+    </div>
+</nav>
 <!--User-->
 <br><br>
 <div class="container mx-auto">
@@ -19,23 +39,23 @@
                 </div>
             </div>
           </div>
+
           <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
             <div class="row">
                 <div class="col-6 my-auto">
                     <h2 class="font-weight-bold pt-4">Favorite Animes</h2>
                 </div>
-
                 
             </div>
               <br>
               <div class="row">
-                  {% for a in user.profile.animes.all %}
+                  {% for favorite in user.profile.favorites.all %}
                     <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
                         <div class="h-100">
-                            <img src="{{ a.anime_image.url }}" class="card-img-top" alt="{{ a.anime_title }}" style="width: auto; height: 225px; object-fit: scale-down;">
+                            <img src="{{ favorite.image }}" class="card-img-top" alt="{{ favorite.title }}" style="width: auto; height: 225px; object-fit: scale-down;">
                             <div class="card-body">
-                                  <h5 class="card-title">{{ a.anime_title }}</h5>
-                                <p class="card-text text-muted" style="font-size:12px">{{ a.anime_episodes }}</p>
+                                  <h5 class="card-title">{{ favorite.title }}</h5>
+                                <p class="card-text text-muted" style="font-size:12px">Episodes: {{ favorite.episodes }}</p>
                             </div>
                           </div>
                     </div>
@@ -43,6 +63,8 @@
             </div>
         </div> 
     </div>
-</div>
+
+<!--Edit user modal-->
+...
 
 {% endblock %}

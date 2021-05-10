@@ -23,12 +23,12 @@ def homepage(request):
 def search(request):
    animes = []
 
-   if request.method == 'POST':
+   if request.method=='POST' and 'search' in request.POST :
        animes_url = 'https://api.jikan.moe/v3/search/anime?q={}&limit=6&page=1'
        
        search_params = {
            'animes' : 'title',
-           'q' : request.POST.get('search', None)
+           'q' : request.POST['search']
            
            }
 
@@ -49,27 +49,34 @@ def search(request):
                animes.append(animes_data)
        else:
            message = print("No results found")
-
-       for item in animes:
-           print(item)
-    
-   context = {
-   'animes' : animes
-   }
        
-   return render(request,'search.html', context)
+       for item in animes:
+           id = item.get("Id")  
+           title = item.get("Title")
+           episodes = item.get("Episodes")
+           image = item.get("Image")
+           
+           anime_in_database = Anime.objects.filter(title=title).exists()
+           if not anime_in_database:
+              anime = Anime.objects.create(mal_id=id, title=title, episodes=episodes, image=image) 
+              anime.save()
 
-def anime(request):
-   if request.method == "POST":
+       context = {
+        'animes' : animes
+        }
+            
+       return render(request,'search.html', context)
+
+   elif request.method=='POST' and 'anime_id' in request.POST :
+
        anime_id = request.POST.get("anime_id")
-       anime = Anime.objects.get(id = anime_id)
-       request.user.profile.animes.add(anime)
+       anime = Anime.objects.get(mal_id = anime_id)
+       request.user.profile.favorites.add(anime)
        messages.success(request,(f'{anime} added to wishlist.'))
-       return redirect ('/search')
-   animes = Anime.objects.all()
-   
-   return render(request = request, template_name="search.html")
-
+       
+    
+   return render(request,'search.html')
+       
 
 def register_request(request):
 	if request.method == "POST":
@@ -94,7 +101,7 @@ def login_request(request):
 			if user is not None:
 				login(request, user)
 				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("/")
+				return redirect("/search")
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
@@ -111,20 +118,22 @@ def logout_request(request):
 
 @login_required
 def profile(request):
-	if request.method == "POST":
-		user_form = UserForm(request.POST, instance=request.user)
-		profile_form = ProfileForm(request.POST, instance=request.user.profile)
-		if user_form.is_valid():
-		    user_form.save()
-		    messages.success(request,('Your profile was successfully updated!'))
-		elif profile_form.is_valid():
-		    profile_form.save()
-		    messages.success(request,('Your wishlist was successfully updated!'))
-		else:
-		    messages.error(request,('Unable to complete request'))
-		return redirect ("main:userpage")
-	user_form = UserForm(instance=request.user)
-	profile_form = ProfileForm(instance=request.user.profile)
-	return render(request = request, template_name ="profile.html", context = {"user":request.user, 
-		"user_form": user_form, "profile_form": profile_form })
+    
+    if request.method == "POST":
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request,('Your profile was successfully updated!'))
+        elif profile_form.is_valid():
+            profile_form.save()
+            messages.success(request,('Your wishlist was successfully updated!'))
+        else:
+            messages.error(request,('Unable to complete request'))
+        return redirect ("profile")
+    user_form = UserForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    
+    return render(request = request, template_name ="profile.html", context = {"user":request.user, 
+		"user_form": user_form, "profile_form": profile_form,})
 
