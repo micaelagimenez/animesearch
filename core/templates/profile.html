@@ -50,6 +50,10 @@
               <br>
               <div class="row">
                   {% for favorite in user.profile.favorites.all %}
+                  <form method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" value="{{ favorite.pk }}" name="favorite_id">
+                  <button type="submit" class="btn btn-outline-danger" style="font-size:8px; border-radius: 50%">X</button>
                     <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
                         <div class="h-100">
                             <img src="{{ favorite.image }}" class="card-img-top" alt="{{ favorite.title }}" style="width: auto; height: 225px; object-fit: scale-down;">
@@ -59,6 +63,7 @@
                             </div>
                           </div>
                     </div>
+                </form>
                 {% endfor %}
             </div>
         </div> 

@@ -2,7 +2,7 @@ from django.shortcuts import  render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
-from .models import Anime
+from .models import Anime, Profile
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -73,7 +73,8 @@ def search(request):
        anime = Anime.objects.get(mal_id = anime_id)
        request.user.profile.favorites.add(anime)
        messages.success(request,(f'{anime} added to wishlist.'))
-       
+       return render(request, 'profile.html')
+    
     
    return render(request,'search.html')
        
@@ -115,25 +116,13 @@ def logout_request(request):
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("core:homepage")
 
-
 @login_required
 def profile(request):
     
-    if request.method == "POST":
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid():
-            user_form.save()
-            messages.success(request,('Your profile was successfully updated!'))
-        elif profile_form.is_valid():
-            profile_form.save()
-            messages.success(request,('Your wishlist was successfully updated!'))
-        else:
-            messages.error(request,('Unable to complete request'))
-        return redirect ("profile")
-    user_form = UserForm(instance=request.user)
-    profile_form = ProfileForm(instance=request.user.profile)
-    
-    return render(request = request, template_name ="profile.html", context = {"user":request.user, 
-		"user_form": user_form, "profile_form": profile_form,})
+    if request.method=='POST' and 'favorite_id' in request.POST :
+            favorite_id = request.POST.get("favorite_id")
+            request.user.profile.favorites.remove(favorite_id)
+            messages.success(request,(f'{favorite_id} deleted from wishlist.'))
+          
+    return render(request, 'profile.html')
 

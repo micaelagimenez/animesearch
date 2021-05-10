@@ -54,11 +54,14 @@
       </div> 
       <br><br>
       {% if animes %}
-      {% for anime in animes %}
+      <div class="card-deck align-items-center">
+      <div class="row row-cols-4 row-cols-md-3 d-flex justify-content-center">
+        {% for anime in animes %}
       <form method="post">
         {% csrf_token %}
           <div class=row>
-          <div class="col-md-4 col-sm-6 col-lg-3">
+          <div class="col-md-15">
+            <div class="col-auto">
             <div class="card bg-light mb-3">
               <div class="card-body text-center">
                 <p class="card-title"> <b>{{anime.Title}}</b></p>
@@ -73,6 +76,7 @@
           </div>
         </div>
       </div>
+    </div>
         {% endif %}                              
       </form>
 
