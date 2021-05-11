@@ -21,7 +21,7 @@ class NewUserForm(UserCreationForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ['username', 'email']
 
 
 class ProfileForm(forms.ModelForm):

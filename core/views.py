@@ -123,6 +123,16 @@ def profile(request):
             favorite_id = request.POST.get("favorite_id")
             request.user.profile.favorites.remove(favorite_id)
             messages.success(request,(f'{favorite_id} deleted from wishlist.'))
-          
-    return render(request, 'profile.html')
-
+            
+    elif request.method == "POST":
+        user_form = UserForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request,('Your profile was successfully updated!'))
+        else:
+            messages.error(request,('Unable to complete request'))
+            return redirect ("/profile")  
+    
+    user_form = UserForm()
+    
+    return render(request, 'profile.html',context = {"user":request.user, "user_form": user_form })
