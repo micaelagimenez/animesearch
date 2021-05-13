@@ -48,28 +48,26 @@
                     </div>
                 </div>
             </div>
-            
-
             <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
                 <div class="row">
                     <div class="col-6 my-auto">
                         <h2 class="font-weight-bold pt-4">Favorite Animes</h2>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     {% for favorite in user.profile.favorites.all %}
-                    <form method="POST">
-                    {% csrf_token %}<div class="container py-5">
+                    <form name="favorite_id" method="POST">
+                    {% csrf_token %}
+                    <div class="container py-5">
                     <input type="hidden" value="{{ favorite.pk }}" name="favorite_id">
                     <button type="submit" class="btn btn-outline-danger" style="font-size:8px; border-radius: 50%">X</button>
-                        <br><br>
                         <div class="col-sm-12 col-md-6 col-lg-4 pb-4">
                             <div class="h-100">
                                 <img src="{{ favorite.image }}" class="card-img-top" alt="{{ favorite.title }}" style="width: auto; height: 225px; object-fit: scale-down;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ favorite.title }}</h5>
                                     <p class="card-text text-muted" style="font-size:12px">Episodes: {{ favorite.episodes }}</p>
+                                </div>  
                                 </div>
                             </div>
                         </div>

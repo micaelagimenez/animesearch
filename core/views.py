@@ -88,7 +88,6 @@ def search(request):
 
 @login_required
 def profile(request):
-    
     if request.method=='POST' and 'favorite_id' in request.POST :
             favorite_id = request.POST.get("favorite_id")
             request.user.profile.favorites.remove(favorite_id)
