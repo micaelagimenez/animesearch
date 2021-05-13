@@ -127,4 +127,4 @@ MESSAGE_TAGS = {
  }
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.abspath(os.path.dirname(__file__))
