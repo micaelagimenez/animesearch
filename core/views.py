@@ -80,7 +80,7 @@ def search(request):
        anime = Anime.objects.get(mal_id = anime_id)
        request.user.profile.favorites.add(anime)
        messages.success(request,(f'{anime} added to wishlist.'))
-       return render(request, 'profile.html')
+       return render(request, 'search.html')
     
     
    return render(request,'search.html')

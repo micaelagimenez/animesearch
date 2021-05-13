@@ -54,6 +54,7 @@
                         <h2 class="font-weight-bold pt-4">Favorite Animes</h2>
                     </div>
                 </div>
+                <!--Delete favorites-->
                 <div class="row">
                     {% for favorite in user.profile.favorites.all %}
                     <form name="favorite_id" method="POST">
