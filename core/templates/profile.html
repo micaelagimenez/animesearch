@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% debug %}
     {% block content %}
@@ -59,7 +60,7 @@
                 <div class="row">
                     {% for favorite in user.profile.favorites.all %}
                     <form method="POST">
-                    {% csrf_token %}
+                    {% csrf_token %}<div class="container py-5">
                     <input type="hidden" value="{{ favorite.pk }}" name="favorite_id">
                     <button type="submit" class="btn btn-outline-danger" style="font-size:8px; border-radius: 50%">X</button>
                         <br><br>

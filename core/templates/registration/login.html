@@ -1,4 +1,4 @@
-
+{% include "header.html" %}
 {% block content %}      
 {% load crispy_forms_tags %}
   
@@ -14,13 +14,21 @@
 <body>
 
   
-<div class="container py-5">
-  <h1>Login</h1>
+
+<br>
+  <div class="row justify-content-md-center">
+  <div class="col-auto">
+    <h2>Login</h2>
   <form method="POST">
     {% csrf_token %}
     {{ login_form|crispy }}
-    <button class="btn btn-primary" type="submit">Login</button>
+    <button class="btn btn-danger" type="submit">Login</button>
   </form>
-  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
 </div>
+</div>
+<br>
+  <p class="text-center"><a href="/register">Create an account</a></p>
+  
+  <p class="text-center"><a href="/password_reset">Forgot my password</a> </p>
+
 {% endblock %}

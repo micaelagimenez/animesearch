@@ -1,3 +1,4 @@
+{% include "messages.html" %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,12 +34,12 @@
         </ul>
 
             {% else %}
-          <ul>
+            <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>
             </li>
-            <li clas="nav-item">
-              <a class="btn btn-outline-primary" href="/register">Register</a>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
             </li>
           </ul>
             {% endif %}

@@ -37,21 +37,24 @@
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary" href="/register">Register</a>
+          <a class="btn btn-outline-danger" href="/register">Register</a>
         </li>
 
         {% endif %}
       </ul>
     </div>
   </nav>
-<div class="container py-5">
-	<h1>Register</h1>
+  <div class="row justify-content-md-center">
+  <div class="col-auto">
+<br><br>
+	<h2>Register</h2>
 	<form method="POST">
 		{% csrf_token %}
 		{{ register_form|crispy }}                    
-		<button class="btn btn-primary" type="submit">Register</button>
+		<button class="btn btn-danger " type="submit">Register</button>
 	</form>
 	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
 </div>
+  </div>
 
 {% endblock %}
