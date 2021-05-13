@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath anime mysite.wsgi --log-file -
