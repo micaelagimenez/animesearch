@@ -129,6 +129,11 @@ MESSAGE_TAGS = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.dirname(__file__))
 
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
