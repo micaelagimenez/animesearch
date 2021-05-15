@@ -16,7 +16,7 @@ SECRET_KEY = '#^w=iorq3q@c91rcura&vga859m6=-7zx8@2(&(1)t+t0cx@wh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["https://animesearchapi.herokuapp.com/"]
+ALLOWED_HOSTS = [".herokuapp.com"]
 
 
 # Application definition
@@ -130,8 +130,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Activate Django-Heroku.
