@@ -1,17 +1,13 @@
 from django.shortcuts import  render, redirect
-from .models import Anime, Profile
-from .forms import NewUserForm, UserForm, ProfileForm 
-from django.views import View
+from .models import Anime
+from .forms import NewUserForm, UserForm
 
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from django.urls import reverse
-
 import requests
-import json
 from django.http import HttpResponse
 
 
