@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = '#^w=iorq3q@c91rcura&vga859m6=-7zx8@2(&(1)t+t0cx@wh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -119,6 +119,13 @@ LOGIN_REDIRECT_URL = '/search'
 LOGOUT_REDIRECT_URL = '/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+ }
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -129,3 +136,36 @@ STATIC_ROOT = os.path.abspath(os.path.dirname(__file__))
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
+ # Debugging in heroku live
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
