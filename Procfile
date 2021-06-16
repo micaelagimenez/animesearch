@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath anime mysite.wsgi --log-file -
+web: python manage.py collectstatic --no-input; gunicorn --pythonpath anime mysite.wsgi --log-file -
