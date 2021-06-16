@@ -113,7 +113,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 
 LOGIN_REDIRECT_URL = '/search'
 LOGOUT_REDIRECT_URL = '/login'
@@ -127,7 +127,7 @@ MESSAGE_TAGS = {
         messages.ERROR: 'alert-danger',
  }
 
-STATIC_URL = '/static/'
+
 STATIC_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # Activate Django-Heroku.
